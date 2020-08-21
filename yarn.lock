@@ -9251,6 +9251,11 @@ vue-loader@15.9.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-resize-observer@^1.0.32:
+  version "1.0.32"
+  resolved "https://registry.yarnpkg.com/vue-resize-observer/-/vue-resize-observer-1.0.32.tgz#96170a459aae8d29693df62d138942fa5e8ba9b6"
+  integrity sha512-Hz1xigu7RmEf4/7eO6Z7OhbYhaTJo87rEZu5XbzbvHn3+MUTMJe/FCtSowe+rwBc7WaPsKcxDp3izMIDUXe5Eg==
+
 vue-router@3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.2.0.tgz#da35195ffe37fdf0bec9f5f8f72781d2a7718815"

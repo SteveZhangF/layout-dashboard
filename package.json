@@ -13,7 +13,8 @@
     "@quasar/extras": "^1.0.0",
     "core-js": "^3.6.5",
     "quasar": "^1.0.0",
-    "vue-grid-layout": "^2.3.8"
+    "vue-grid-layout": "^2.3.8",
+    "vue-resize-observer": "^1.0.32"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",

@@ -1,82 +1,51 @@
 <template>
       <grid-layout
-            :layout.sync="data.children"
-            :col-num="5"
-            :row-height="itemHeight"
+            :layout.sync="layout.children"
+            :col-num="4"
+            :row-height="layout.rowHeight"
             :is-draggable="true"
-            :is-resizable="true"
+            :is-resizable="false"
             :is-mirrored="false"
             :auto-size="true"
             :vertical-compact="true"
             :margin="[10, 10]"
-            :use-css-transforms="true"
+            @layout-ready="()=>{recalc=!recalc}"
     >
-        <grid-item v-for="item in data.children"
-                   :x="item.x"
-                   :y="item.y"
-                   :w="item.w"
-                   :h="item.h"
-                   :i="item.i"
-                   :key="item.i"
-                    @resized="onGridItemResized"
+        <grid-item v-for="child in layout.children"
+                   :x="child.x"
+                   :y="child.y"
+                   :w="child.w"
+                   :h="child.h"
+                   :i="child.i"
+                   :key="child.i"
                    >
-                   <component
-                    :style="{ height:item.height?item.height+ 'px':'' }"
-                    :is="item.component"
-                    :data="item"
-                    @resize="(size)=>{resizeNode(item,size)}"
-                    >
-                     <!-- <q-resize-observer @resize="(size)=>{resizeNode(item,size)}" /> -->
-                  </component>
+            <grid-item-wrapper :recalc="recalc" :layout="child"/>
         </grid-item>
     </grid-layout>
 </template>
 
 <script>
-import Container from 'components/Container'
 import VueGridLayout from 'vue-grid-layout'
-import ScreenerContainer from 'components/ScreenerContainer'
-
+import GridItemWrapper from 'components/GridItemWrapper'
 export default {
   name: 'WaterfallContainer',
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
-    Container: Container,
-    ScreenerContainer: ScreenerContainer
+    GridItemWrapper: GridItemWrapper
   },
   data () {
     return {
-      itemHeight: 50
+      recalc: false
     }
   },
   props: {
-    data: {
+    layout: {
       type: Object,
       default: null
     }
   },
   methods: {
-    resizeNode (node, size) {
-      if (size.height === 0) {
-        return
-      }
-
-      this.data.children.forEach((element, idx) => {
-        if (element.i === node.i) {
-          const height = size.height - size.height % this.itemHeight
-          this.$set(this.data.children[idx], 'height', height)
-          this.$set(this.data.children[idx], 'h', height / this.itemHeight)
-        }
-      })
-    },
-    onGridItemResized (i, newX, newY, newHPx, newWPx) {
-      this.data.children.forEach(child => {
-        if (child.i === i) {
-          this.$set(child, 'height', newHPx)
-        }
-      })
-    }
   }
 }
 </script>
