@@ -50,24 +50,18 @@ class WaterfallContainer extends Container {
 
   doInit () {
     super.doInit()
-    let width = 0
-    this.children.forEach(node => {
-      node.x = width
-      width = width + node.w
-      if (width >= 4) {
-        width = 0
-      }
-    })
   }
 
   calcWidth (resizedWidth) {
     let width = 0
+    console.log('re')
     this.children.forEach(node => {
       node.x = width
       width = width + node.w
       if (width >= 4) {
         width = 0
       }
+      console.log(node)
     })
   }
 }

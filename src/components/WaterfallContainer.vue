@@ -1,7 +1,7 @@
 <template>
       <grid-layout
             :layout.sync="layout.children"
-            :col-num="4"
+            :col-num="5"
             :row-height="layout.rowHeight"
             :is-draggable="true"
             :is-resizable="false"
@@ -9,7 +9,7 @@
             :auto-size="true"
             :vertical-compact="true"
             :margin="[10, 10]"
-            @layout-ready="()=>{recalc=!recalc}"
+            @layout-ready="()=>{layout.calcSize({width:0,height:0})}"
     >
         <grid-item v-for="child in layout.children"
                    :x="child.x"

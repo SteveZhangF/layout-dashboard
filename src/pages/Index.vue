@@ -25,7 +25,7 @@ export default {
           {
             component: 'TabContainer',
             i: '1',
-            w: 2,
+            w: 4,
             x: 0,
             y: 0,
             h: 0
@@ -33,7 +33,7 @@ export default {
           {
             component: 'NormalContainer',
             i: '2',
-            w: 1,
+            w: 3,
             x: 0,
             y: 0,
             h: 0
@@ -41,7 +41,15 @@ export default {
           {
             component: 'NormalContainer',
             i: '3',
-            w: 3,
+            w: 1,
+            x: 0,
+            y: 0,
+            h: 0
+          },
+          {
+            component: 'NormalContainer',
+            i: '4',
+            w: 2,
             x: 0,
             y: 0,
             h: 0

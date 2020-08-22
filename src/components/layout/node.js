@@ -119,7 +119,6 @@ class Node {
   }
 
   calcHeight (resizedHeight) {
-    console.log(this.i)
     this.innerHeight = resizedHeight
     setTimeout(() => {
       const remainder = this.innerHeight % this.rowHeight

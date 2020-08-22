@@ -10,7 +10,7 @@ class NodeFactory {
 
   create (rawData) {
     var node = this.creators[rawData.component](rawData)
-    node.setLayout(rawData)
+    node.init()
     return (node)
   }
 
