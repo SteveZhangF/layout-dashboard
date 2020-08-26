@@ -4,24 +4,33 @@ class NodeFactory {
     this.creators = {}
   }
 
-  register (componentName, creator) {
-    this.creators[componentName] = creator
+  register (name, creator) {
+    this.creators[name] = creator
   }
 
   create (rawData) {
-    var node = this.creators[rawData.component](rawData)
-    node.init()
-    return (node)
+    if (rawData.__inited__) {
+      return rawData
+    }
+    var creator = this.creators[rawData.name]
+    if (!creator) {
+      creator = this.creators.default
+    }
+    return creator(rawData)
   }
 
-    static instance
+  static instance
 
-    static getInstance () {
-      if (NodeFactory.instance == null) {
-        NodeFactory.instance = new NodeFactory()
-      }
-      return NodeFactory.instance
+  static getInstance () {
+    if (NodeFactory.instance == null) {
+      NodeFactory.instance = new NodeFactory()
     }
+    return NodeFactory.instance
+  }
+
+  findNode (id) {
+    return this.root.findNode(id)
+  }
 }
 
 var factory = NodeFactory.getInstance()

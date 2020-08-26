@@ -12,9 +12,12 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "core-js": "^3.6.5",
+    "interactjs": "^1.9.22",
     "quasar": "^1.0.0",
     "vue-grid-layout": "^2.3.8",
-    "vue-resize-observer": "^1.0.32"
+    "vue-masonry": "^0.11.8",
+    "vue-resize-observer": "^1.0.32",
+    "vuedraggable": "^2.24.1"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",

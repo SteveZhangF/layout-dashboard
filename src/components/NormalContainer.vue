@@ -1,37 +1,46 @@
 <template>
-    <q-card dark bordered class="bg-grey-9 my-card">
-      <q-card-section>
-        <div class="text-h6">Our Changing Planet</div>
-        <div class="text-subtitle2">by John Doe</div>
-      </q-card-section>
-
-      <q-separator dark inset />
-
-      <q-card-section>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </q-card-section>
-    </q-card>
+<div :id="layout.id" style=" touch-action: none; user-select: none;backgroup-color:blue">
+  <button @click="edit">Edit</button>
+    <div class="row justify-center">
+  <component
+    :id="c.id"
+    v-for="c in layout.children"
+    :is="c.name"
+    :key="c.id"
+    :class="c.class"
+    :layout="c"
+    :style="c.style"
+    />
+    </div>
+</div>
 </template>
-
 <script>
 
 export default {
-  name: 'TabContainer',
-  data: function () {
+  name: 'NormalContainer',
+  components: {
+  },
+  data () {
     return {
-      tab: 'mails'
+      dragingover: false
     }
   },
   props: {
-    data: {
+    layout: {
       type: Object,
-      default: null
+      default: () => { return {} }
     }
+  },
+  methods: {
+    edit () {
+      this.layout.edit()
+    }
+  },
+  mounted () {
+    this.layout.element = this.$el
   }
 }
+
 </script>
-<style lang="sass" scoped>
+<style scoped>
 </style>

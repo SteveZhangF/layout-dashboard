@@ -1,15 +1,18 @@
 <template>
-<div>
-  <component :is="layout.component" :layout="layout"/>
+<div style="height:100%">
+  <component
+    :id="layoutNode.id"
+    :is="layoutNode.name"
+    v-if="layoutNode"
+    :layout="layoutNode"
+  />
 </div>
 </template>
 <script>
 import { factory } from './layout/index.js'
-import WaterfallContainer from 'components/WaterfallContainer'
 export default {
   name: 'index',
   components: {
-    WaterfallContainer: WaterfallContainer
   },
 
   props: {
@@ -24,13 +27,14 @@ export default {
 
   data () {
     return {
-      layoutNode: factory.create({ component: this.root })
+      layoutNode: null
     }
   },
   created () {
   },
   mounted () {
-    this.layoutNode.setLayout(this.layout)
+    this.layoutNode = factory.create(this.layout)
+    factory.root = this.layoutNode
   }
 }
 </script>

@@ -1,13 +1,11 @@
 <template>
-  <q-page class="">
-    <button @click="save"/>
-    <dash-board :layout="layoutNode"></dash-board>
+  <q-page  class="page-width-1440 bg-white">
+    <dash-board :layout="layout"></dash-board>
   </q-page>
 </template>
 
 <script>
 import DashBoard from 'components/DashBoard'
-import { factory } from 'src/components/layout'
 
 export default {
   name: 'PageIndex',
@@ -17,57 +15,132 @@ export default {
   data () {
     return {
       layout: {
-        component: 'WaterfallContainer',
-        x: 0,
-        y: 0,
-        rowHeight: 90,
+        id: '0',
+        size: {
+          sm: 12,
+          md: 12,
+          lg: 12,
+          xm: 12
+        },
+        name: 'NormalContainer',
         children: [
           {
-            component: 'TabContainer',
-            i: '1',
-            w: 4,
-            x: 0,
-            y: 0,
-            h: 0
+            id: '1',
+            name: 'NormalContainer',
+            size: {
+              xs: 12,
+              sm: 4,
+              md: 6,
+              lg: 6
+            },
+            children: [
+              {
+                id: '11',
+                name: 'Screener',
+                size: {
+                  xs: 12,
+                  sm: 4,
+                  md: 3,
+                  lg: 3
+                }
+              },
+              {
+                id: '12',
+                name: 'Article',
+                size: {
+                  xs: 12,
+                  sm: 4,
+                  md: 3,
+                  lg: 3
+                }
+              }
+            ]
           },
           {
-            component: 'NormalContainer',
-            i: '2',
-            w: 3,
-            x: 0,
-            y: 0,
-            h: 0
+            id: '2',
+            name: 'NormalContainer',
+            size: {
+              xs: 12,
+              sm: 4,
+              md: 3,
+              lg: 3
+            },
+            children: [
+              {
+                id: '21',
+                name: 'Article',
+                size: {
+                  xs: 12,
+                  sm: 4,
+                  md: 3,
+                  lg: 3
+                }
+              },
+              {
+                id: '22',
+                name: 'Screener',
+                size: {
+                  xs: 12,
+                  sm: 4,
+                  md: 3,
+                  lg: 3
+                }
+              }
+            ]
           },
           {
-            component: 'NormalContainer',
-            i: '3',
-            w: 1,
-            x: 0,
-            y: 0,
-            h: 0
-          },
-          {
-            component: 'NormalContainer',
-            i: '4',
-            w: 2,
-            x: 0,
-            y: 0,
-            h: 0
+            id: '3',
+            name: 'NormalContainer',
+            size: {
+              xs: 12,
+              sm: 4,
+              md: 3,
+              lg: 3
+            },
+            children: [
+              {
+                id: '31',
+                name: 'Article',
+                size: {
+                  xs: 12,
+                  sm: 4,
+                  md: 3,
+                  lg: 3
+                }
+              },
+              {
+                id: '32',
+                name: 'Screener',
+                size: {
+                  xs: 12,
+                  sm: 4,
+                  md: 3,
+                  lg: 3
+                }
+              }
+            ]
           }
         ]
-      },
-      layoutNode: factory.create({ component: 'WaterfallContainer' })
-    }
-  },
-  mounted () {
-    console.log(this.layoutNode)
-    this.layoutNode.setLayout(this.layout)
-  },
-  methods: {
-    save () {
-      console.log(this.layoutNode.toJson())
+      }
     }
   }
-
 }
 </script>
+<style scoped>
+.page-width-1200{
+  width: 1200px;
+  max-width: 100%;
+  margin:0 auto;
+}
+.page-width-1600{
+  width: 1600px;
+  max-width: 100%;
+  margin:0 auto;
+}
+.page-width-1440{
+  width: 1440px;
+  max-width: 100%;
+  margin:0 auto;
+  height:875px;
+}
+</style>
