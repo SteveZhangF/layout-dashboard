@@ -53,6 +53,26 @@ export default {
                   md: 3,
                   lg: 3
                 }
+              },
+              {
+                id: '13',
+                name: 'Screener',
+                size: {
+                  xs: 12,
+                  sm: 4,
+                  md: 3,
+                  lg: 3
+                }
+              },
+              {
+                id: '14',
+                name: 'Screener',
+                size: {
+                  xs: 12,
+                  sm: 4,
+                  md: 3,
+                  lg: 3
+                }
               }
             ]
           },
@@ -78,7 +98,7 @@ export default {
               },
               {
                 id: '22',
-                name: 'Screener',
+                name: 'Article',
                 size: {
                   xs: 12,
                   sm: 4,
@@ -100,7 +120,7 @@ export default {
             children: [
               {
                 id: '31',
-                name: 'Article',
+                name: 'Screener',
                 size: {
                   xs: 12,
                   sm: 4,

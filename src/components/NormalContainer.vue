@@ -1,5 +1,5 @@
 <template>
-<div :id="layout.id" style=" touch-action: none; user-select: none;backgroup-color:blue">
+<div :id="layout.id" style=" touch-action: none; user-select: none;backgroup-color:blue;     border-width: 2px;border-style: dashed;">
   <button @click="edit">Edit</button>
     <div class="row justify-center">
   <component
