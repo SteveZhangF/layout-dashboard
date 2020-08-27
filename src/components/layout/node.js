@@ -126,6 +126,13 @@ class Node {
     Object.keys(this.size).forEach(sz => {
       classes = classes + ' col-' + sz + '-' + this.size[sz] / this.parent.size[sz] * 12
     })
+    if (this.draggableStatus.moving) {
+      classes = classes + ' moving '
+    }
+    if (this.dropzoneStatus.in) {
+      classes = classes + ' in '
+    }
+    console.log(classes)
     return classes
   }
 
@@ -147,7 +154,7 @@ class Node {
 
   get style () {
     return {
-      transform: `translate(${this.draggableStatus.position.x}px, ${this.draggableStatus.position.y}px)`
+      // transform: `translate(${this.draggableStatus.position.x}px, ${this.draggableStatus.position.y}px)`
     }
   }
 
@@ -160,6 +167,9 @@ class Node {
       this.children[index] = c[index]
     }
     console.log(this.children)
+    const id = this.id
+    this.id = id + '_'
+    this.id = id
   }
 
   edit () {
@@ -177,31 +187,61 @@ class Node {
 
   handleDragNDrop (event) {
     switch (event.type) {
-      case 'dragstart':
-        if (this.parent !== null) {
-          this.parent.dropzoneStatus.active = true
-        } else {
-          console.log('parent not found ', this)
+      case 'move':
+        var interaction = event.interaction
+
+        // if the pointer was moved while being held down
+        // and an interaction hasn't started yet
+        if (interaction.pointerIsDown && !interaction.interacting()) {
+          // var original = event.currentTarget,
+          // create a clone of the currentTarget element
+          const clone = event.currentTarget.cloneNode(true)
+          this.element.parentElement.appendChild(clone)
+          clone.style.position = 'fixed'
+          clone.style.left = event.clientX + 'px'
+          clone.style.top = event.clientY + 'px'
+          clone.style.height = event.currentTarget.clientHeight + 'px'
+          clone.style.width = event.currentTarget.clientWidth + 'px'
+          this.draggableStatus.moving = true
+          // insert the clone to the page
+          // TODO: position the clone appropriately
+          // start a drag interaction targeting the clone
+          interaction.start({ name: 'drag' },
+            event.interactable,
+            clone)
         }
-        this.draggableStatus.moving = true
         break
       case 'dragmove':
-        this.draggableStatus.position.x += event.dx
-        this.draggableStatus.position.y += event.dy
+        var target = event.target,
+          // keep the dragged position in the data-x/data-y attributes
+          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+        // translate the element
+        target.style.webkitTransform =
+        target.style.transform =
+          'translate(' + x + 'px, ' + y + 'px)'
 
+        // update the posiion attributes
+        target.setAttribute('data-x', x)
+        target.setAttribute('data-y', y)
         break
       case 'dragend':
         this.draggableStatus.position.x = 0
         this.draggableStatus.position.y = 0
         this.parent.dropzoneStatus.active = false
+        event.target.remove()
+        this.draggableStatus.moving = false
         break
       case 'dragenter':
+        this.dropzoneStatus.in = true
         console.log('entered into ', this.id)
         break
       case 'dragleave':
+        this.dropzoneStatus.in = false
         console.log('leave from ', this.id)
         break
       case 'drop':
+        this.dropzoneStatus.in = false
         if (this.parent.id === event.draggable.__node__.parent.id) {
           const idx = this.index
           this.index = event.draggable.__node__.index
@@ -209,14 +249,8 @@ class Node {
           const size = Object.assign({}, this.size)
           Object.assign(this.size, event.draggable.__node__.size)
           Object.assign(event.draggable.__node__.size, size)
-          // event.draggable.__node__.size.sm = size.sm
-          // event.draggable.__node__.size.lg = size.lg
-          // event.draggable.__node__.size.md = size.md
-          // event.draggable.__node__.size.xs = size.xs
-
           this.parent.resort()
         }
-        console.log('drop into ', this.id)
     }
   }
 
@@ -225,11 +259,11 @@ class Node {
       this.interactObj = interact(this.element)
     }
     if (this.draggable) {
-      this.interactObj.draggable({})
+      this.interactObj.draggable({ manualStart: true })
       this.interactObj.__node__ = this
       if (!this.dragEventSet) {
         this.dragEventSet = true
-        this.interactObj.on('dragstart dragmove dragend', (event) => {
+        this.interactObj.on('dragstart dragmove dragend move', (event) => {
           this.handleDragNDrop(event)
         })
       }

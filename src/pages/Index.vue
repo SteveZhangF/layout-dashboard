@@ -105,6 +105,16 @@ export default {
                   md: 3,
                   lg: 3
                 }
+              },
+              {
+                id: '23',
+                name: 'Article',
+                size: {
+                  xs: 12,
+                  sm: 4,
+                  md: 3,
+                  lg: 3
+                }
               }
             ]
           },
